@@ -1,15 +1,22 @@
 <?php 
-$conn=mysqli_connect("localhost","dbuser","123","Like") ;
+
 function get_articles(){
-    
+  $conn=mysqli_connect("localhost","dbuser","123","Like") ;  
    // $articles=array();
-    $Query="SELECT * FROM Article WHERE ArticleId=1";
+    $Query="SELECT * FROM Article";
     $Data=  mysqli_query($conn, $Query);
-    $fields=  mysqli_fetch_assoc($Data);
-   while($fields)
+   
+   while( $fields=  mysqli_fetch_assoc($Data))
    {
-       echo $fields['ArticleTitle'],'<br/>';
+      $articles[] =array(
+          'ArticleId'=>$fields['ArticleId'],
+          'ArticleTitle'=>$fields['ArticleTitle'],
+          'ArticleLike'=>$fields['ArticleLike']
+      );
+     //echo '<pre>', print_r($articles),'</pre>';
+  
    }
+       return $articles;
 }
 
 ?>
